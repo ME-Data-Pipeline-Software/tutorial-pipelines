@@ -1,0 +1,15 @@
+classname: pipelines.custom_pipeline_tutorial.pipeline.CustomPipelineTutorial
+
+triggers:
+  - .*custom.*\.csv
+
+retriever:
+  path: pipelines/custom_pipeline_tutorial/config/retriever.yaml
+
+dataset:
+  path: pipelines/custom_pipeline_tutorial/config/dataset.yaml
+
+quality:
+  path: pipelines/custom_pipeline_tutorial/config/quality.yaml
+storage:
+  path: shared/storage.yaml

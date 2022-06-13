@@ -1,0 +1,117 @@
+attrs:
+  title: custom_pipeline_tutorial
+  description: Brief description of the ingest
+  location_id: arctic
+  dataset_name: custom_pipeline_tutorial
+  data_level: b1
+  # qualifier:
+  # temporal:
+  # institution:
+
+coords:
+  time:
+    dims: [time]
+    dtype: datetime64[s]
+    attrs:
+      units: Seconds since 1970-01-01 00:00:00
+
+data_vars:
+  latitude: # Name of variable in dataset
+    dims: [time] # Dimension of variable
+    dtype: float # Datatype
+    attrs:
+      long_name: Latitude # Used in plots
+      units: deg N # Necessary for unit conversion and user understanding
+      comment: "" # Add a comment or description if necessary
+      _FillValue: 99 # Bad data marker in raw dataset, typically -999
+      fail_range: [-90, 90] # Expected failure range for QC tests
+
+  longitude:
+    dims: [time]
+    dtype: float
+    attrs:
+      long_name: Latitude
+      units: deg N
+      comment: ""
+      fail_range: [-90, 90]
+
+  pressure:
+    dims: [time]
+    dtype: float
+    attrs:
+      long_name: Pressure at Sea Level
+      units: dbar
+      comment: ""
+
+  temperature:
+    dims: [time]
+    dtype: float
+    attrs:
+      long_name: Air Temperature
+      units: degC
+      comment: ""
+
+  dew_point:
+    dims: [time]
+    dtype: float
+    attrs:
+      long_name: Dew Point
+      units: degC
+      comment: ""
+
+  wave_period:
+    dims: [time]
+    dtype: float
+    attrs:
+      long_name: Wave Period
+      units: s
+      comment: Assumed to refer to average wave period
+      _FillValue: 99
+
+  wave_height:
+    dims: [time]
+    dtype: float
+    attrs:
+      long_name: Wave Height
+      units: m
+      comment: Assumed to refer to average wave height
+
+  swell_direction:
+    dims: [time]
+    dtype: float
+    attrs:
+      long_name: Swell Direction
+      units: deg from N
+      comment: Assumed to refer to peak wave direction
+
+  swell_period:
+    dims: [time]
+    dtype: float
+    attrs:
+      long_name: Swell Period
+      units: s
+      comment: Assumed to refer to peak wave period
+
+  swell_height:
+    dims: [time]
+    dtype: float
+    attrs:
+      long_name: Swell Height
+      units: m
+      comment: Assumed to refer to significant wave height
+
+  wind_direction:
+    dims: [time]
+    dtype: float
+    attrs:
+      long_name: Wind Direction
+      units: deg from N
+      comment: ""
+
+  wind_speed:
+    dims: [time]
+    dtype: float
+    attrs:
+      long_name: Wind Speed
+      units: m/s
+      comment: ""

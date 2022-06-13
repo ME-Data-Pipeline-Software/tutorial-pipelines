@@ -1,8 +1,8 @@
 classname: tsdat.io.retrievers.DefaultRetriever
 readers:
   .*:
-    classname: tsdat.io.readers.CSVReader
-    parameters: # Parameters to pass to CsvHandler. Comment out if not using.
+    classname: pipelines.custom_pipeline_tutorial.readers.NCEIReader
+    parameters:
       read_csv_kwargs:
         sep: ", *"
         engine: "python"
@@ -92,5 +92,6 @@ data_vars:
     .*:
       name: Wind Speed
       data_converters:
-        - classname: tsdat.io.converters.UnitsConverter
-          input_units: dm/s
+        - classname: pipelines.custom_pipeline_tutorial.converters.Kt10Converter
+          parameters:
+            units: kt/10

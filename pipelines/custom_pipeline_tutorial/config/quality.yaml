@@ -1,3 +1,4 @@
+# DEVELOPER: Specify the quality checks and handlers that should be applied
 managers:
   #---------------------------------------------------------------
   - name: Fail if missing coordinates
@@ -23,18 +24,18 @@ managers:
       - COORDS
 
     #---------------------------------------------------------------
-  - name: Remove missing datapoints
-    checker:
-      classname: tsdat.qc.checkers.CheckMissing
-    handlers:
-      - classname: tsdat.qc.handlers.RemoveFailedValues
-      - classname: tsdat.qc.handlers.RecordQualityResults
-        parameters:
-          bit: 1
-          assessment: bad
-          meaning: "Value is equal to _FillValue or NaN"
-    apply_to:
-      - DATA_VARS
+  # - name: Remove missing datapoints
+  #   checker:
+  #     classname: tsdat.qc.checkers.CheckMissing
+  #   handlers:
+  #     - classname: tsdat.qc.handlers.RemoveFailedValues
+  #     - classname: tsdat.qc.handlers.RecordQualityResults
+  #       parameters:
+  #         bit: 1
+  #         assessment: bad
+  #         meaning: "Value is equal to _FillValue or NaN"
+  #   apply_to:
+  #     - DATA_VARS
 
   - name: Flag datapoints below minimum failure threshold
     checker:
@@ -81,5 +82,18 @@ managers:
           bit: 5
           assessment: indeterminate
           meaning: "Value is greater than the warn_range."
+    apply_to:
+      - DATA_VARS
+
+  - name: Cubic spline interpolation
+    checker:
+      classname: tsdat.qc.checkers.CheckMissing
+    handlers:
+      - classname: pipelines.custom_pipeline_tutorial.qc.PolyInterpHandler
+      - classname: tsdat.qc.handlers.RecordQualityResults
+        parameters:
+          bit: 10
+          assessment: bad
+          meaning: "Data replaced with cubic polynomial"
     apply_to:
       - DATA_VARS

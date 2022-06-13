@@ -1,7 +1,6 @@
 classname: pipelines.ncei_arctic_cruise_example.pipeline.NceiArcticCruiseExample
 
 triggers:
-  # DEVELOPER: Update regex patterns that should trigger this pipeline
   - .*arctic_ocean.*\.csv
 
 retriever:
