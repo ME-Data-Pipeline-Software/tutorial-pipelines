@@ -1,6 +1,7 @@
 import xarray as xr
 import cmocean
 import matplotlib.pyplot as plt
+import act
 
 from tsdat import IngestPipeline, get_start_date_and_time_str, get_filename
 
@@ -33,9 +34,25 @@ class NceiArcticCruiseExample(IngestPipeline):
         with self.storage.uploadable_dir(datastream) as tmp_dir:
 
             fig, ax = plt.subplots()
-            dataset["pressure"].plot(ax=ax, x="time", c=cmocean.cm.deep_r(0.5))
-            fig.suptitle(f"Pressure Observations from at {location} on {date} {time}")
+            dataset["temperature"].plot(ax=ax, x="time", c=cmocean.cm.deep_r(0.5))
+            fig.suptitle(f"Temperature measured at {location} on {date} {time}")
 
-            plot_file = get_filename(dataset, title="example_plot", extension="png")
+            plot_file = get_filename(dataset, title="temperature", extension="png")
+            fig.savefig(tmp_dir / plot_file)
+            plt.close(fig)
+
+            # Creat Plot Display
+            obj = dataset
+            variable = "wave_height"
+            display = act.plotting.TimeSeriesDisplay(
+                obj, figsize=(15, 10), subplot_shape=(2,)
+            )
+            # Plot data in top plot
+            display.plot(variable, subplot_index=(0,), label="Wave Height")
+            # Plot QC data
+            display.qc_flag_block_plot(variable, subplot_index=(1,))
+            fig = display.fig
+
+            plot_file = get_filename(dataset, title="wave_height", extension="png")
             fig.savefig(tmp_dir / plot_file)
             plt.close(fig)
